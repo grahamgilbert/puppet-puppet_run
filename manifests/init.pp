@@ -1,8 +1,7 @@
 class puppet_run (
     $server_name
 ){
-    class {'customer::puppet_conf::directories': } ->
-    class {'customer::puppet_conf::install': } ->
-    class {'customer::puppet_conf::service': } ->
-    class {'customer::puppet_conf::cleanup': }
+    class {'puppet_run::directories': } ->
+    class {'puppet_run::install': } ->
+    class {'puppet_run::service': }
 }
