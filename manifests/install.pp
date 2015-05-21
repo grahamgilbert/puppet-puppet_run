@@ -10,7 +10,7 @@ class puppet_run::install (
                 group   => wheel,
                 mode    => 644,
                 ensure  => present,
-                content => template("customer/mac_puppet_conf.erb"),
+                content => template("puppet_run/mac_puppet_conf.erb"),
             }
 
 
