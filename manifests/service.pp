@@ -13,11 +13,6 @@ class puppet_run::service (
             service {'puppet':
                 ensure  => running,
             }
-
-            file {'/etc/default/puppet':
-                ensure  => present,
-                source  => 'puppet:///modules/customer/puppet_conf/defaults_puppet_ubuntu12',
-            }
         }
     }
 }
