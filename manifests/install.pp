@@ -38,6 +38,10 @@ class puppet_run::install (
 
         }
 
+        default:{
+            notify{'one day, do something': }
+        }
+
     }
 
 }
