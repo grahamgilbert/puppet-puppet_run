@@ -14,7 +14,7 @@ end
 Facter.add(:clean_certname) do
     confine :osfamily => "Debian"
     setcode do
-        certname = Facter.value('hostname')
+        certname = Facter.value('fqdn')
         certname.downcase
     end
 end
