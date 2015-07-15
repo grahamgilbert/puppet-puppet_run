@@ -39,7 +39,22 @@ class puppet_run::install (
         }
 
         default:{
-            notify{'one day, do something': }
+            $default_content = '# Defaults for puppet - sourced by /etc/init.d/puppet
+
+# Enable puppet agent service?
+# Setting this to "yes" allows the puppet agent service to run.
+# Setting this to "no" keeps the puppet agent service from running.
+START=yes
+
+# Startup options
+DAEMON_OPTS=""
+'
+            file {'/etc/default/puppet':
+                content = $default_content,
+                owner   => 0,
+                group   => 0,
+                mode    => 0644,
+            }
         }
 
     }
