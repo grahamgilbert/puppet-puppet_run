@@ -38,7 +38,7 @@ class puppet_run::install (
 
         }
 
-        default:{
+        Ubuntu:{
             $default_content = '# Defaults for puppet - sourced by /etc/init.d/puppet
 
 # Enable puppet agent service?
