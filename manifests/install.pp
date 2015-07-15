@@ -50,7 +50,7 @@ START=yes
 DAEMON_OPTS=""
 '
             file {'/etc/default/puppet':
-                content = $default_content,
+                content => $default_content,
                 owner   => 0,
                 group   => 0,
                 mode    => 0644,
