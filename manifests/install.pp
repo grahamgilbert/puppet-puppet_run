@@ -36,6 +36,15 @@ class puppet_run::install (
                     refreshonly => true,
                 }
             }
+            else{
+                file { '/etc/paths.d/puppet':
+                    ensure => present,
+                    group  => 0,
+                    owner  => 0,
+                    mode   => '0755',
+                    source => 'puppet:///modules/puppet_run/puppet'
+                }
+            }
 
         }
 
