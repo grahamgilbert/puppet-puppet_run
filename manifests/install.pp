@@ -3,9 +3,8 @@ class puppet_run::install (
 ){
     case $operatingsystem {
         Darwin:{
-
             file { mac_puppet_conf:
-                path    => "/etc/puppet/puppet.conf",
+                path    => "${::puppet_confdir}/puppet.conf",
                 owner   => root,
                 group   => wheel,
                 mode    => 644,
@@ -13,7 +12,7 @@ class puppet_run::install (
                 content => template("puppet_run/mac_puppet_conf.erb"),
             }
 
-            if $::puppetversion < 4 {
+            if $::clientversion < 4 {
                 file {'/Library/LaunchDaemons/com.grahamgilbert.puppet_run.plist':
                     owner   => root,
                     group   => wheel,
