@@ -35,8 +35,7 @@ class puppet_run::install (
                     command     => '/bin/launchctl -w load /Library/LaunchDaemons/com.grahamgilbert.puppet_run.plist',
                     refreshonly => true,
                 }
-            }
-            else{
+            }else{
                 file { '/etc/paths.d/puppet':
                     ensure => present,
                     group  => 0,
