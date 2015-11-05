@@ -20,7 +20,7 @@ class puppet_run::install (
             }
 
             # The confdir moved with puppet 4. Hacky, but it works.
-            if $::puppet_confdir != '/etc/puppetlabs/puppet' {
+            if $::facterversion > 3 {
                 file {'/Library/LaunchDaemons/com.grahamgilbert.puppet_run.plist':
                     owner   => root,
                     group   => wheel,
