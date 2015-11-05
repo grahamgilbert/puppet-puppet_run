@@ -12,7 +12,8 @@ class puppet_run::install (
                 content => template("puppet_run/mac_puppet_conf.erb"),
             }
 
-            if $::clientversion < 4 {
+            # The confdir moved with puppet 4. Hacky, but it works.
+            if $::puppet_confdir != '/etc/puppetlabs/puppet' {
                 file {'/Library/LaunchDaemons/com.grahamgilbert.puppet_run.plist':
                     owner   => root,
                     group   => wheel,
