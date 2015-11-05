@@ -7,9 +7,16 @@ class puppet_run::install (
                 path    => "${::puppet_confdir}/puppet.conf",
                 owner   => root,
                 group   => wheel,
-                mode    => 644,
+                mode    => '0644',
                 ensure  => present,
                 content => template("puppet_run/mac_puppet_conf.erb"),
+            }
+            file { '/etc/paths.d/puppet':
+                ensure => present,
+                group  => 0,
+                owner  => 0,
+                mode   => '0755',
+                source => 'puppet:///modules/puppet_run/puppet'
             }
 
             # The confdir moved with puppet 4. Hacky, but it works.
@@ -17,7 +24,7 @@ class puppet_run::install (
                 file {'/Library/LaunchDaemons/com.grahamgilbert.puppet_run.plist':
                     owner   => root,
                     group   => wheel,
-                    mode    => 644,
+                    mode    => '0644',
                     ensure  => present,
                     source  => 'puppet:///modules/puppet_run/com.grahamgilbert.puppet_run.plist',
                     notify  => Exec['load_puppet_run'],
@@ -26,7 +33,7 @@ class puppet_run::install (
                 file {'/Library/Management/bin/puppet_run.py':
                     owner   => root,
                     group   => wheel,
-                    mode    => 755,
+                    mode    => '0755',
                     ensure  => present,
                     source  => 'puppet:///modules/puppet_run/puppet_run.py',
                 }
@@ -35,15 +42,9 @@ class puppet_run::install (
                     command     => '/bin/launchctl -w load /Library/LaunchDaemons/com.grahamgilbert.puppet_run.plist',
                     refreshonly => true,
                 }
-            }else{
-                file { '/etc/paths.d/puppet':
-                    ensure => present,
-                    group  => 0,
-                    owner  => 0,
-                    mode   => '0755',
-                    source => 'puppet:///modules/puppet_run/puppet'
-                }
             }
+                
+            
 
         }
 
