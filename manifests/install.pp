@@ -3,24 +3,35 @@ class puppet_run::install (
 ){
     case $operatingsystem {
         Darwin:{
-            file { mac_puppet_conf:
-                path    => "${::puppet_confdir}/puppet.conf",
-                owner   => root,
-                group   => wheel,
-                mode    => '0644',
-                ensure  => present,
-                content => template("puppet_run/mac_puppet_conf.erb"),
-            }
-            file { '/etc/paths.d/puppet':
-                ensure => present,
-                group  => 0,
-                owner  => 0,
-                mode   => '0755',
-                source => 'puppet:///modules/puppet_run/puppet'
+            if $::facterversion < 3{
+                file { mac_puppet_conf:
+                    path    => "/etc/puppetlabs/puppet/puppet.conf",
+                    owner   => root,
+                    group   => wheel,
+                    mode    => '0644',
+                    ensure  => present,
+                    content => template("puppet_run/mac_puppet_conf.erb"),
+                }
+                file { '/etc/paths.d/puppet':
+                    ensure => present,
+                    group  => 0,
+                    owner  => 0,
+                    mode   => '0755',
+                    source => 'puppet:///modules/puppet_run/puppet'
+                }
             }
 
             # The confdir moved with puppet 4. Hacky, but it works.
             if $::facterversion > 3 {
+
+                file { mac_puppet_conf:
+                    path    => "/etc/puppet/puppet.conf",
+                    owner   => root,
+                    group   => wheel,
+                    mode    => '0644',
+                    ensure  => present,
+                    content => template("puppet_run/mac_puppet_conf.erb"),
+                }
                 file {'/Library/LaunchDaemons/com.grahamgilbert.puppet_run.plist':
                     owner   => root,
                     group   => wheel,
