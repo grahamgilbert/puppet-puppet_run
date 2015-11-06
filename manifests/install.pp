@@ -3,7 +3,7 @@ class puppet_run::install (
 ){
     case $operatingsystem {
         Darwin:{
-            if $::clientversion < 4 {
+          if versioncmp($::clientversion, '4') > 0 {
                 file { mac_puppet_conf:
                     path    => "/etc/puppetlabs/puppet/puppet.conf",
                     owner   => root,
@@ -21,8 +21,7 @@ class puppet_run::install (
                 }
             }
 
-            # The confdir moved with puppet 4. Hacky, but it works.
-            if $::clientversion > 4 {
+            if versioncmp($::clientversion, '4') < 0 {
 
                 file { mac_puppet_conf:
                     path    => "/etc/puppet/puppet.conf",
