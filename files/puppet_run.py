@@ -15,7 +15,6 @@ run_lock_file = '/var/lib/puppet/state/agent_catalog_run.lock'
 disabled_lock_file = '/var/lib/puppet/state/agent_disabled.lock'
 max_delay = 1200
 
-
 def random_delay():
     randomized_delay = random.randrange(0, max_delay)
     logger.info("Delaying run by %s seconds" % randomized_delay)
@@ -83,6 +82,7 @@ def run_puppet():
 
 
 def main():
+    os.environ["LANG"] = "en_US.UTF-8"
     random_delay()
     preflight()
     run_puppet()
