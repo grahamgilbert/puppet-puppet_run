@@ -17,6 +17,7 @@ max_delay = 1200
 
 def random_delay():
     randomized_delay = random.randrange(0, max_delay)
+    print "Delaying run by %s seconds" % randomized_delay
     logger.info("Delaying run by %s seconds" % randomized_delay)
     time.sleep(randomized_delay)
 
