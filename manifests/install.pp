@@ -2,8 +2,8 @@ class puppet_run::install (
     $server_name = $puppet_run::server_name
 ){
     case $operatingsystem {
-        Darwin:{
-          if versioncmp($::clientversion, '4') > 0 {
+        'Darwin':{
+          if versioncmp($::clientversion , '4') > 0 {
                 file { mac_puppet_conf:
                     path    => "/etc/puppetlabs/puppet/puppet.conf",
                     owner   => root,
@@ -19,6 +19,20 @@ class puppet_run::install (
                     mode   => '0755',
                     source => 'puppet:///modules/puppet_run/puppet'
                 }
+                # Remove old files left after upgrade
+                exec {'unload_puppet_run':
+                    command     => '/bin/launchctl unload -w /Library/LaunchDaemons/com.grahamgilbert.puppet_run.plist',
+                    onlyif => '/bin/test -f /Library/LaunchDaemons/com.grahamgilbert.puppet_run.plist',
+                }
+                file {'/Library/LaunchDaemons/com.grahamgilbert.puppet_run.plist':
+                    ensure  => absent,
+                }
+
+                file {'/Library/Management/bin/puppet_run.py':
+                    ensure  => absent,
+                }
+
+
             }
 
             if versioncmp($::clientversion, '4') < 0 {
@@ -58,7 +72,7 @@ class puppet_run::install (
 
         }
 
-        Ubuntu:{
+        'Ubuntu':{
             $default_content = '# Defaults for puppet - sourced by /etc/init.d/puppet
 
 # Enable puppet agent service?
