@@ -21,7 +21,7 @@ class puppet_run::install (
                 }
                 # Remove old files left after upgrade
                 exec {'unload_puppet_run':
-                    command     => '/bin/launchctl -w unload /Library/LaunchDaemons/com.grahamgilbert.puppet_run.plist',
+                    command     => '/bin/launchctl unload -w /Library/LaunchDaemons/com.grahamgilbert.puppet_run.plist',
                     onlyif => '/bin/test -f /Library/LaunchDaemons/com.grahamgilbert.puppet_run.plist',
                 }
                 file {'/Library/LaunchDaemons/com.grahamgilbert.puppet_run.plist':
