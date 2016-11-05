@@ -87,7 +87,7 @@ DAEMON_OPTS=""
                 content => $default_content,
                 owner   => 0,
                 group   => 0,
-                mode    => 0644,
+                mode    => '0644',
             }
         }
 
