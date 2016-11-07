@@ -2,16 +2,16 @@ class puppet_run::service (
     $server_name = $puppet_run::server_name
 ){
     case $operatingsystem {
-        Darwin:{
+        'Darwin':{
             service { 'com.grahamgilbert.puppet_run':
                 ensure  => 'running',
                 enable  => 'true',
             }
         }
 
-        Ubuntu:{
+        'Ubuntu':{
             service {'puppet':
-                ensure  => running,
+                ensure  => 'running',
             }
         }
     }
