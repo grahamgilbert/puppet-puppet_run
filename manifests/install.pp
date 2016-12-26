@@ -63,7 +63,7 @@ class puppet_run::install (
                 }
 
                 exec {'load_puppet_run':
-                    command     => '/bin/launchctl -w load /Library/LaunchDaemons/com.grahamgilbert.puppet_run.plist',
+                    command     => '/bin/launchctl load -w /Library/LaunchDaemons/com.grahamgilbert.puppet_run.plist',
                     refreshonly => true,
                 }
             }
