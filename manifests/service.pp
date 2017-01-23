@@ -11,7 +11,7 @@ class puppet_run::service (
 
         'Ubuntu':{
             service {'puppet':
-                ensure  => running,
+                ensure  => 'running',
             }
         }
     }
