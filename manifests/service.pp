@@ -3,10 +3,13 @@ class puppet_run::service (
 ){
     case $operatingsystem {
         'Darwin':{
-            service { 'com.grahamgilbert.puppet_run':
-                ensure  => 'running',
-                enable  => 'true',
-            }
+        	# puppet has its own service since version 4.0
+        	if versioncmp($::clientversion, '4') < 0 {
+				service { 'com.grahamgilbert.puppet_run':
+					ensure  => 'running',
+					enable  => 'true',
+				}
+			}
         }
 
         'Ubuntu':{
